@@ -1,4 +1,4 @@
-**Railway Reservation System**
+## **Railway Reservation System**
 This is a mini DBMS project simulating a basic railway reservation system. It includes features like booking management, database schema, and simple user interactions.
 
 **What's Included**
