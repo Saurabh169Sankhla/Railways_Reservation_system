@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Train Ticket Checkout</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .body_div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f5f7fa;
+      padding: 20px;
+    }
+    
+    .checkout-container {
+      width: 100%;
+      max-width: 700px;
+    }
+    
+    .checkout-header {
+      background-color: #1a73e8;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 10px 10px 0 0;
+    }
+    
+    .checkout-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    
+    .checkout-subtitle {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+    
+    .checkout-body {
+      background-color: #ffffff;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    
+    .ticket-details {
+      padding: 20px;
+      border-bottom: 1px solid #eaedf3;
+    }
+    
+    .train-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .train-icon {
+      background-color: #e8f0fe;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: #1a73e8;
+    }
+    
+    .train-primary {
+      flex: 1;
+    }
+    
+    .train-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .train-number {
+      font-size: 13px;
+      color: #666;
+      margin-top: 2px;
+    }
+    
+    .journey-path {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      position: relative;
+    }
+    
+    .station-point {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 30%;
+    }
+    
+    .station-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #1a73e8;
+      border-radius: 50%;
+      margin-bottom: 5px;
+    }
+    
+    .station-code {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .station-time {
+      font-size: 12px;
+      color: #666;
+      margin-top: 2px;
+    }
+    
+    .journey-line {
+      flex: 2;
+      height: 2px;
+      background-color: #1a73e8;
+      position: relative;
+    }
+    
+    .journey-date {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    
+    .passenger-details {
+      border: 1px solid #eaedf3;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 15px;
+    }
+    
+    .passenger-heading {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    
+    .passenger-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .passenger-count {
+      font-size: 14px;
+      color: #666;
+    }
+    
+    .passenger-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    
+    .passenger-row:last-child {
+      margin-bottom: 0;
+    }
+    
+    .passenger-name {
+      font-weight: 500;
+    }
+    
+    .passenger-details .class-label {
+      background-color: #e8f0fe;
+      color: #1a73e8;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 8px;
+    }
+    
+    .bill-details {
+      background-color: #f8f9fc;
+      padding: 20px;
+    }
+    
+    .bill-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    
+    .bill-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    
+    .bill-row .bill-label {
+      color: #666;
+    }
+    
+    .bill-row .bill-value {
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .discount {
+      color: #34a853;
+    }
+    
+    .bill-total {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px dashed #ddd;
+    }
+    
+    .bill-total .bill-label {
+      font-weight: 500;
+      font-size: 16px;
+      color: #333;
+    }
+    
+    .bill-total .bill-value {
+      font-weight: 600;
+      font-size: 18px;
+      color: #1a73e8;
+    }
+    
+    .checkout-actions {
+      padding: 20px;
+      border-top: 1px solid #eaedf3;
+    }
+    
+    .payment-options {
+      margin-bottom: 15px;
+    }
+    
+    .payment-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .payment-methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .payment-method {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 10px;
+      width: calc(33.33% - 7px);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .payment-method:hover {
+      border-color: #1a73e8;
+    }
+    
+    .payment-method.selected {
+      background-color: #e8f0fe;
+      border-color: #1a73e8;
+    }
+    
+    .payment-method-name {
+      font-size: 12px;
+      color: #333;
+      margin-top: 5px;
+    }
+    
+    .payment-submit {
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 0;
+      width: 100%;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .payment-submit:hover {
+      background-color: #1765cc;
+    }
+    
+    .secure-text {
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+      margin-top: 10px;
+    }
+    .navbar {
+            background-color: #0d3a83; /* Royal blue background */
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 15px 0;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 20px 16px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: #4285f4; /* Darker blue on hover */
+        }
+        
+        .nav-links a.active {
+            background-color: #003380;
+        }
+        
+        /* Responsive design */
+        @media screen and (max-width: 600px) {
+            .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                width: 100%;
+            }
+            
+            .nav-links a {
+                display: block;
+                text-align: left;
+                padding: 15px;
+            }
+        }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+        <a href="#" class="logo">RailBooker</a>
+        <div class="nav-links">
+            <a href="/train/" style="background-color: #4285f4;">Book Tickets</a>
+            <a href="/train/status">Check Status</a>
+            <a href="/train/schedule">Train Schedule</a>
+            <a href="/train/cancellation">Cancel_booking</a>
+        </div>
+    </div>
+</nav>
+
+<div class="body_div">
+
+  <div class="checkout-container">
+    <div class="checkout-header">
+      <div class="checkout-title">Booking Completed.!</div>
+    </div>
+    
+    <div class="checkout-body">
+      <div class="ticket-details">
+        <div class="train-info">
+          <div class="train-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="3" width="16" height="16" rx="2"/>
+              <path d="M4 11h16"/>
+              <path d="M12 3v16"/>
+            </svg>
+          </div>
+          <div class="train-primary">
+            <div class="train-name">{{ info.Train_name }}</div>
+            <div class="train-number">Train No. {{ info.Train_id }}</div>
+          </div>
+        </div>
+        
+        <div class="journey-path">
+          <div class="station-point">
+            <div class="station-dot"></div>
+            <div class="station-code">{{ info.Start_station_details.Station_name }}</div>
+            <div class="station-time">{{ info.Start_time|date:"H:i" }}</div>
+          </div>
+          
+          <div class="journey-line"></div>
+          
+          <div class="station-point">
+            <div class="station-dot"></div>
+            <div class="station-code">{{ info.End_station_details.Station_name }}</div>
+            <div class="station-time">{{ info.End_time|date:"H:i" }}</div>
+          </div>
+        </div>
+        
+        <div class="journey-date">
+            {{ info.Start_time|date:"D d M Y" }} •{{ info.Start_time|timesince:info.End_time }} • {{ info.Distance }} KM
+        </div>
+        
+      </div>
+      
+      <div class="bill-details">
+        <div class="bill-title">Booking Details</div>
+        
+        <div class="bill-row">
+          <div class="bill-label">PNR</div>
+          <div class="bill-value">{{ details.details.PNR }}</div>
+        </div>
+        
+        <div class="bill-row">
+          <div class="bill-label">Booking Status</div>
+          <div class="bill-value">{{details.details.Booking_Status}}</div>
+        </div>
+        <div class="bill-row">
+          <div class="bill-label">Booking Category</div>
+          <div class="bill-value">{{details.cat}}</div>
+        </div>
+        
+        <div class="bill-row">
+          <div class="bill-label">Transaction id</div>
+          <div class="bill-value">{{ details.details.Transaction_id }}</div>
+        </div>
+        
+        <div class="bill-row">
+          <div class="bill-label">Seat No.</div>
+          <div class="bill-value">{{ details.details.Seat_id }}</div>
+        </div>
+
+        <div class="bill-row">
+          <div class="bill-label">Amount Recived</div>
+          <div class="bill-value">{{ details.details.Transaction_Amount }}</div>
+        </div>
+
+        <div class="train-name"></div>
+        <div class="train-number"></div>
+        <div class="bill-row">
+          <div class="bill-label">Train Name</div>
+          <div class="bill-value">{{ info.Train_name }}</div>
+        </div>
+        
+        <div class="bill-row">
+          <div class="bill-label">Train Number</div>
+          <div class="bill-value">{{ info.Train_id }}</div>
+        </div>
+        
+      </div>
+      
+      <div class="checkout-actions">
+        
+        
+        <button class="payment-submit" onclick="window.location.href='/train'">Return to Home</button>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

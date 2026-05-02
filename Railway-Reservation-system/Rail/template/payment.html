@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .body_div {
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    form {
+      width: 100%;
+      max-width: 700px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    
+    .form-header {
+      background-color: #1a73e8;
+      color: white;
+      padding: 15px 20px;
+    }
+    
+    .form-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    
+    .form-subtitle {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+    
+    .inp-container {
+      flex-wrap: wrap !important;
+      padding: 20px !important;
+      gap: 15px;
+    }
+    
+    .inp-container > div {
+      flex: 1 0 45%;
+      min-width: 250px;
+      margin-bottom: 15px;
+    }
+    
+    /* Style for all labels */
+    label {
+      display: block;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    
+    /* Style for all inputs */
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"],
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      margin-bottom: 5px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+    }
+    
+    /* Style for submit button */
+    input[type="submit"] {
+      background-color: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      margin: 10px 20px 20px;
+      width: calc(100% - 40px);
+      transition: background-color 0.2s;
+    }
+    
+    input[type="submit"]:hover {
+      background-color: #1765cc;
+    }
+    
+    /* Section titles */
+    .section-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      margin: 15px 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eaedf3;
+    }
+    
+    /* Payment section */
+    .payment-section {
+      padding: 0 20px 10px;
+    }
+    
+    /* Payment method selection */
+    .payment-methods {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .payment-method {
+      flex: 1;
+      min-width: 100px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .payment-method:hover {
+      border-color: #1a73e8;
+    }
+    
+    .payment-method.selected {
+      background-color: #e8f0fe;
+      border-color: #1a73e8;
+    }
+    
+    .payment-icon {
+      margin-bottom: 5px;
+      color: #666;
+    }
+    
+    .selected .payment-icon {
+      color: #1a73e8;
+    }
+    
+    .payment-method-name {
+      font-size: 12px;
+      color: #333;
+    }
+    
+    /* Card details styles */
+    .card-details {
+      padding: 15px;
+      border: 1px solid #eaedf3;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      background-color: #f8f9fc;
+    }
+    
+    .card-row {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .card-field {
+      flex: 1;
+      min-width: 200px;
+      margin-bottom: 10px;
+    }
+    
+    .small-field {
+      flex: 0 0 120px;
+    }
+    
+    /* Security text */
+    .secure-text {
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+      margin: 10px 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .lock-icon {
+      margin-right: 5px;
+      color: #666;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 700px) {
+      .inp-container > div {
+        flex: 1 0 100%;
+      }
+      
+      .card-field {
+        flex: 1 0 100%;
+      }
+    }
+    .navbar {
+            background-color: #0d3a83; /* Royal blue background */
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 15px 0;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 20px 16px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: #4285f4; /* Darker blue on hover */
+        }
+        
+        .nav-links a.active {
+            background-color: #003380;
+        }
+        
+        /* Responsive design */
+        @media screen and (max-width: 600px) {
+            .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                width: 100%;
+            }
+            
+            .nav-links a {
+                display: block;
+                text-align: left;
+                padding: 15px;
+            }
+        }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+        <a href="#" class="logo">RailBooker</a>
+        <div class="nav-links">
+            <a href="/train/" style="background-color: #4285f4;">Book Tickets</a>
+            <a href="/train/status">Check Status</a>
+            <a href="/train/schedule">Train Schedule</a>
+            <a href="/train/cancellation">Cancel_booking</a>
+        </div>
+    </div>
+</nav>
+
+<div class="body_div">
+  
+ <form action="./booking_status" method="post">
+  <div class="form-header">
+    {% if error != "" %}
+        <h1>
+            {{error}}
+        </h1>
+    {% endif %}
+  </div>
+   
+    <div class="form-header">
+      <div class="form-title">Payment Details</div>
+      <div class="form-subtitle">Please enter your information to complete booking</div>
+    </div>
+    
+    <div class="section-title">Personal Information</div>
+    
+    
+    <div class="inp-container" style="display:flex;width: 100%;">
+        {% csrf_token %}
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    
+        {{ form.gender.label_tag }}
+        {{ form.gender }}
+    
+        {{ form.Phone_no.label_tag }}
+        {{ form.Phone_no }}
+        
+        {{ form.DoB.label_tag }}
+        {{ form.DoB }}
+    </div>
+    
+    <div class="section-title">Payment Method</div>
+    
+    <div class="payment-section">
+      <div class="payment-methods">
+        <div class="payment-method selected" onclick="selectPayment(this, 'card')">
+          <div class="payment-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+              <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+          </div>
+          <div class="payment-method-name">Credit/Debit Card</div>
+        </div>
+        
+      </div>
+      
+      <div id="card-payment" class="card-details">
+        {{ form.Account_no.label_tag }}
+        {{ form.Account_no }}
+    
+        {{ form.CVV.label_tag }}
+        {{ form.CVV }}
+    
+        {{ form.Expiry.label_tag }}
+        {{ form.Expiry }}
+      </div>
+      
+      
+    </div>
+    
+    <input type="submit" value="Pay ₹{{ total }}">
+  </form> 
+  
+  
+
+  <script>
+    function selectPayment(element, type) {
+      // Remove selected class from all payment methods
+      document.querySelectorAll('.payment-method').forEach(method => {
+        method.classList.remove('selected');
+      });
+      
+      // Add selected class to clicked payment method
+      element.classList.add('selected');
+      
+      // Hide all payment forms
+      document.getElementById('card-payment').style.display = 'none';
+      document.getElementById('upi-payment').style.display = 'none';
+      document.getElementById('netbanking-payment').style.display = 'none';
+      
+      // Show selected payment form
+      document.getElementById(type + '-payment').style.display = 'block';
+    }
+    
+    // Format card number with spaces
+    document.getElementById('card_number').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+      let formattedValue = '';
+      for (let i = 0; i < value.length; i++) {
+        if (i > 0 && i % 4 === 0) {
+          formattedValue += ' ';
+        }
+        formattedValue += value[i];
+      }
+      e.target.value = formattedValue;
+    });
+    
+    // Format expiry date with slash
+    document.getElementById('expiry').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 2) {
+        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+      }
+      e.target.value = value;
+    });
+  </script>
+  </div>
+</body>
+</html>
